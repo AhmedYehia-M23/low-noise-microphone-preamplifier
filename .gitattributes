@@ -1,0 +1,5 @@
+*.asc linguist-detectable=false
+*.kicad_pcb linguist-detectable=false
+*.kicad_mod linguist-detectable=false
+*.kicad_sch linguist-detectable=false
+*.kicad_sym linguist-detectable=false

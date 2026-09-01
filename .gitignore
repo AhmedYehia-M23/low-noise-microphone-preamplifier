@@ -1,0 +1,54 @@
+# KiCad temporary / backup files
+*.000
+*.bak
+*.bck
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*-backups/
+*-cache*
+*-bak
+*-bak*
+*~
+~*
+_autosave-*
+#auto_saved_files#
+*.tmp
+*-save.pro
+*-save.kicad_pcb
+fp-info-cache
+~*.lck
+.history/
+*.kicad_prl
+
+# KiCad generated netlists / autorouter files
+*.net
+*.dsn
+*.ses
+
+# Generated manufacturing outputs
+**/gerbers/
+**/JLCPCB_Gerbers/
+**/PCBWay*/
+*.gbr
+*.gbrjob
+*.gtl
+*.gbl
+*.gts
+*.gbs
+*.gto
+*.gbo
+*.gm1
+*.gko
+*.drl
+
+# LTspice generated simulation outputs
+*.raw
+*.log
+
+# OS / editor metadata
+.DS_Store
+Thumbs.db
+
+# Vendor SPICE models (download locally from the manufacturer)
+simulation/ltspice/OPA165x.LIB
+simulation/ltspice/OPA165x*.LIB
