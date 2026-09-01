@@ -4,6 +4,13 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad and valid
 
 ![PCB 3D render](docs/kicad/pcb_3d_top.png)
 
+### Quick links
+
+- [KiCad schematic](hardware/kicad/Microphone.kicad_sch)
+- [KiCad PCB](hardware/kicad/Microphone.kicad_pcb)
+- [LTspice simulation](simulation/ltspice/)
+- [Noise analysis notes](docs/noise-analysis.md)
+
 ## Project status
 
 - Circuit design: complete
@@ -14,6 +21,7 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad and valid
 - LTspice stepped transient analysis: passes
 - LTspice stepped AC analysis: passes
 - Hardware measurement: pending
+- Full system noise characterization: pending
 
 ## Key specifications
 
@@ -111,6 +119,14 @@ The 5 V rail uses:
 
 The mid-supply divider also uses **C3 = 10 µF** at `VREF_RAW`.
 
+## Noise status
+
+The OPA1652 was selected partly for its low-noise audio performance. Texas Instruments specifies typical input-voltage noise density of **4.5 nV/√Hz at 1 kHz** and **3.8 nV/√Hz at 10 kHz**.
+
+That device specification is not the same as total preamplifier noise. The complete system also includes noise from the electret capsule and its internal JFET, bias and feedback resistors, the VREF network, the power supply and the PCB environment.
+
+The current project therefore does **not** claim a measured system noise figure. A first-order resistor/noise-source discussion and the planned hardware characterization method are documented in [`docs/noise-analysis.md`](docs/noise-analysis.md).
+
 ## KiCad schematic
 
 ![Rendered KiCad schematic](docs/kicad/kicad_schematic.png)
@@ -133,8 +149,6 @@ Notable layout features:
 - Project-local microphone footprint library for portability
 
 ## PCB views
-
-The 3D top render is used as the hero image at the top of this README. Additional views are shown below.
 
 ### Alternate 3D view
 
@@ -208,18 +222,9 @@ At approximately 30 dB gain, the simulated -3 dB bandwidth is:
 │       ├── Microphone.asc
 │       └── README.md
 └── docs/
+    ├── noise-analysis.md
     ├── kicad/
-    │   ├── kicad_schematic.png
-    │   ├── pcb_3d_top.png
-    │   ├── pcb_3d_angle.png
-    │   └── pcb_layout_top.png
     └── ltspice/
-        ├── ltspice_schematic.png
-        ├── ac_gain_30_35_40dB.png
-        ├── full_frequency_response.png
-        ├── transient_gain_steps.png
-        ├── transient_input_vs_output_30dB.png
-        └── audio_output_transient_30dB.png
 ```
 
 Generated Gerber, drill, cache, autosave, backup, and local KiCad preference files are intentionally excluded from version control.
@@ -242,6 +247,6 @@ The simulation uses Texas Instruments' **OPA165x PSpice Model (Rev. C)**. The ve
 
 See [`simulation/ltspice/README.md`](simulation/ltspice/README.md) for the exact setup, directives, and useful trace expressions.
 
-## Notes
+## Current validation boundary
 
-The current performance figures are **simulation results**, not bench measurements. Hardware characterization will be added after PCB assembly and testing, including measured gain, frequency response, noise, clipping level, and supply-current data.
+The published performance figures are **simulation results**, not bench measurements. Hardware characterization will be added after PCB assembly and testing, including measured gain, frequency response, noise, clipping level and supply current.
