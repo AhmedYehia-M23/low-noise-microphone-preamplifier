@@ -129,7 +129,30 @@ The current project therefore does **not** claim a measured system noise figure.
 
 ## KiCad schematic
 
-![Rendered KiCad schematic](docs/kicad/kicad_schematic.png)
+![Readable KiCad schematic overview](docs/kicad/kicad_schematic_readable.svg)
+
+[Open full-resolution, zoomable schematic (SVG)](docs/kicad/kicad_schematic_readable.svg) · [Original KiCad schematic screenshot](docs/kicad/kicad_schematic.png)
+
+<details>
+<summary>View enlarged schematic sections</summary>
+
+**Power input, decoupling and buffered reference**
+
+![Power and reference circuit](docs/kicad/schematic_power_and_reference.svg)
+
+**Electret microphone and input high-pass filter**
+
+![Microphone and input stage](docs/kicad/schematic_microphone_and_input.svg)
+
+**Variable-gain amplifier and test points**
+
+![Amplifier and test points](docs/kicad/schematic_gain_stage_and_test_points.svg)
+
+**Low-pass filter, coupling and output**
+
+![Output filtering and connector](docs/kicad/schematic_filter_and_output.svg)
+
+</details>
 
 The complete editable schematic is committed at [`hardware/kicad/Microphone.kicad_sch`](hardware/kicad/Microphone.kicad_sch). Open the project through [`hardware/kicad/Microphone.kicad_pro`](hardware/kicad/Microphone.kicad_pro) in KiCad 10 or a compatible newer release.
 
