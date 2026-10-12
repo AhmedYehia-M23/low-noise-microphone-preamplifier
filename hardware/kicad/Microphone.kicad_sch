@@ -8,10 +8,9 @@
 		(title "Low-Noise Electret Microphone Preamplifier")
 		(rev "A")
 		(comment 1 "5 V single supply | Adjustable 30-40 dB gain")
-		(comment 2 "Designed by Ahmed Yehia Mohamed")
 	)
 	(lib_symbols
-		(symbol "AudioPreamp:OPA1652D"
+		(symbol "Amplifier_Operational:OPA1656ID"
 			(pin_names
 				(offset 0.127)
 			)
@@ -31,7 +30,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "OPA1652D"
+			(property "Value" "OPA1656ID"
 				(at 0 -5.08 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -53,7 +52,7 @@
 					)
 				)
 			)
-			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/opa1652.pdf"
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/opa1656.pdf"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -64,7 +63,7 @@
 					)
 				)
 			)
-			(property "Description" "OPA1652 dual SoundPlus low-noise, low-distortion, FET-input audio operational amplifier, SOIC-8"
+			(property "Description" "Dual Ultra-Low-Noise, Low-Distortion, FET-Input, Burr-Brown Audio Operational Amplifiers, SOIC-8"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -107,7 +106,7 @@
 					)
 				)
 			)
-			(symbol "OPA1652D_1_1"
+			(symbol "OPA1656ID_1_1"
 				(polyline
 					(pts
 						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
@@ -175,7 +174,7 @@
 					)
 				)
 			)
-			(symbol "OPA1652D_2_1"
+			(symbol "OPA1656ID_2_1"
 				(polyline
 					(pts
 						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
@@ -243,7 +242,7 @@
 					)
 				)
 			)
-			(symbol "OPA1652D_3_1"
+			(symbol "OPA1656ID_3_1"
 				(pin power_in line
 					(at -2.54 -7.62 90)
 					(length 3.81)
@@ -4130,7 +4129,7 @@
 		)
 	)
 	(symbol
-		(lib_id "AudioPreamp:OPA1652D")
+		(lib_id "Amplifier_Operational:OPA1656ID")
 		(at 111.76 38.1 0)
 		(unit 3)
 		(body_style 1)
@@ -4782,7 +4781,7 @@
 		)
 	)
 	(symbol
-		(lib_id "AudioPreamp:OPA1652D")
+		(lib_id "Amplifier_Operational:OPA1656ID")
 		(at 190.5 40.64 0)
 		(mirror x)
 		(unit 2)
@@ -6266,7 +6265,7 @@
 		)
 	)
 	(symbol
-		(lib_id "AudioPreamp:OPA1652D")
+		(lib_id "Amplifier_Operational:OPA1656ID")
 		(at 166.37 100.33 0)
 		(mirror x)
 		(unit 1)
