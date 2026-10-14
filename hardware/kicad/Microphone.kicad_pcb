@@ -557,7 +557,7 @@
 		(layer "F.Cu")
 		(uuid "21da35a3-3dd0-4fbb-bb17-50c833d340de")
 		(at 102.25 63 180)
-		(descr "ECE ESP1010/SS ESP101 upright SPDT slide switch; 3 pins pitch 2.54mm, drill 0.8mm, body 10x2.5mm; Reichelt DS_ESP_SERIE p.2")
+		(descr "Upright SPDT slide switch; 3 pins at 2.54mm pitch, 0.8mm drill, 10x2.5mm body")
 		(tags "ESP1010 SS ESP101 slide SPDT vertical through hole 2.54")
 		(property "Reference" "SW1"
 			(at 0 6.25 0)

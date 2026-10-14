@@ -26,9 +26,8 @@ fp-info-cache
 *.ses
 
 # Generated manufacturing outputs
-**/gerbers/
-**/JLCPCB_Gerbers/
-**/PCBWay*/
+**/[Gg]erbers/
+**/[Ff]abrication*/
 *.gbr
 *.gbrjob
 *.gtl

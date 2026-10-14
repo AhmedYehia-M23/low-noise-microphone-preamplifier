@@ -133,6 +133,8 @@ The editable KiCad source files above contain the final PCB revision. The 3D pre
 
 ![AD8656 LTspice signal-path schematic](docs/ltspice/ltspice_schematic_ad8656.png)
 
+*This reference image predates the simulation-command cleanup. The linked `.asc` file contains the current simplified analysis configuration.*
+
 ### 1 kHz transient response
 
 ![AD8656 LTspice 1 kHz transient response](docs/ltspice/ltspice_transient_1khz_ad8656.png)
@@ -230,7 +232,7 @@ No bench-tested gain, noise or bandwidth claims are made yet.
 ## Third-party attribution
 
 - **Analog Devices, Inc.** — manufacturer of the AD8656 operational amplifier and copyright holder of the AD8656 SPICE macro-model (© 2010, 2012 Analog Devices, Inc.). See the [official AD8656 product page](https://www.analog.com/en/products/ad8656.html) for the datasheet and model.
-- The Analog Devices SPICE macro-model is **not redistributed** in this repository. It is subject to [Analog Devices' SPICE model license](https://www.analog.com/en/license/spice-models-license.html); users must obtain it directly from the manufacturer and follow the applicable terms.
+- The Analog Devices SPICE macro-model is **not redistributed** in this repository. It is subject to [Analog Devices' SPICE model license](https://www.analog.com/en/license/spice-models.html); users must obtain it directly from the manufacturer and follow the applicable terms.
 - This is an independent electronics project and is **not affiliated with or endorsed by Analog Devices**.
 
 ## Open the project
