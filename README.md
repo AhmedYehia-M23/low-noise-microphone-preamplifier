@@ -4,6 +4,8 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The p
 
 **Status:** PCB design finalized and released for fabrication. Assembly and bench testing are pending. The original LTspice results in this repository use an **OPA165x model**, not the AD8656 used in the final PCB design.
 
+![PCB 3D top view](docs/kicad/pcb_3d_top.png)
+
 ## Project files
 
 - [Editable KiCad schematic](hardware/kicad/Microphone.kicad_sch)
@@ -115,11 +117,15 @@ The final board was checked in KiCad with **zero DRC errors, warnings, unconnect
 
 [View the full-resolution schematic](docs/kicad/Microphone.svg)
 
-The editable KiCad source files above contain the final PCB revision. The 3D renders in `docs/kicad/` still show an earlier layout and will be replaced.
+The editable KiCad source files above contain the final PCB revision. The 3D previews show the final PCB layout; footprints without an associated 3D component model may appear unpopulated.
 
 ### Routed PCB layout
 
 ![Final routed PCB layout](docs/kicad/pcb_layout_top.png)
+
+### Angled 3D view
+
+![PCB angled 3D render](docs/kicad/pcb_3d_angle.png)
 
 ## LTspice simulation — earlier op-amp revision
 
