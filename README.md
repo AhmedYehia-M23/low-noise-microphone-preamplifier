@@ -1,208 +1,175 @@
 # Low-Noise Electret Microphone Preamplifier
 
-A 5 V single-supply electret microphone preamplifier designed in KiCad and validated in LTspice. The design provides adjustable gain of approximately 30–40 dB and audio-band filtering, with a simulated -3 dB bandwidth of approximately 33.9 Hz to 17.8 kHz at the 30 dB setting.
+A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The production PCB uses an **Analog Devices AD8656ARMZ** dual op-amp (MSOP-8), adjustable non-inverting gain targeting approximately **30–40 dB**, and RC high-pass and low-pass filtering.
 
-![PCB 3D render](docs/kicad/pcb_3d_top.png)
+**Status:** PCB design complete; five bare boards ordered from PCBWay on **14 October 2026**. Assembly and bench testing are pending. The original LTspice results in this repository use an **OPA165x model**, not the AD8656 fitted to the ordered board.
 
-### Quick links
+## Project files
 
-- [KiCad schematic](hardware/kicad/Microphone.kicad_sch)
-- [KiCad PCB](hardware/kicad/Microphone.kicad_pcb)
-- [LTspice simulation](simulation/ltspice/)
-- [Noise analysis notes](docs/noise-analysis.md)
+- [Editable KiCad schematic](hardware/kicad/Microphone.kicad_sch)
+- [Editable KiCad PCB](hardware/kicad/Microphone.kicad_pcb)
+- [KiCad project settings](hardware/kicad/Microphone.kicad_pro)
+- [LTspice schematic and setup](simulation/ltspice/)
+- [Noise analysis notes](docs/noise-analysis.md) — written for the earlier OPA1652 revision; update pending
 
 ## Project status
 
-- Circuit design: complete
-- KiCad schematic and PCB: complete
-- PCB DRC: **0 errors, 0 warnings, 0 unconnected items**
-- LTspice `.op`: passes
-- LTspice transient analysis: passes
-- LTspice stepped transient analysis: passes
-- LTspice stepped AC analysis: passes
-- Hardware measurement: pending
-- Full system noise characterization: pending
-
-## Key specifications
-
-| Parameter | Design / simulated result |
+| Stage | Status |
 | --- | --- |
-| Supply voltage | 5 V DC |
-| Input | Electret microphone |
-| Op-amp | OPA1652 dual FET-input audio op-amp |
-| Gain range | Approximately 30–40 dB |
-| Validated gain points | Approximately 30 / 35 / 40 dB |
-| Simulated -3 dB bandwidth at ~30 dB gain | Approximately 33.9 Hz to 17.8 kHz |
-| PCB | 2-layer, approximately 60 mm × 40 mm |
-| Ground strategy | Bottom-layer GND plane |
+| Circuit and PCB design | Complete |
+| KiCad DRC | **0 errors, 0 warnings, 0 unconnected items, 0 schematic parity violations** on the final local design |
+| PCB fabrication | **5 boards ordered from PCBWay**, 14 October 2026 |
+| Component procurement | Reichelt order placed |
+| PCB assembly | Pending; components will be soldered by hand |
+| LTspice analyses | Passed for the earlier OPA165x-based simulation |
+| AD8656-specific simulation | Not yet published |
+| Bench gain, bandwidth, noise and supply-current measurements | Pending |
 
-## Architecture
+The files in `hardware/kicad/` are the source revision used to prepare the manufacturing files for the PCBWay order. Gerbers and drill exports are not included in this repository.
 
-**Electret microphone → AC coupling / bias → non-inverting OPA1652 gain stage → low-pass filter → output coupling → audio output**
+## Hardware specifications
 
-The second amplifier inside the dual OPA1652 is used as a buffer for the mid-supply reference.
+| Parameter | Final design |
+| --- | --- |
+| Supply | 5 V DC |
+| Microphone | EKULIT EMY-6027P/N-R-42 electret capsule |
+| Op-amp | **AD8656ARMZ** (dual, MSOP-8; KiCad value `AD8656`) |
+| Gain | Adjustable; nominal target approximately 30–40 dB |
+| High-pass network | 100 nF / 47 kΩ; nominal corner approximately 33.9 Hz |
+| Low-pass network | 330 Ω / 27 nF; nominal corner approximately 17.9 kHz |
+| Power switch | SPDT slide switch, SS ESP101 / ESP1010 footprint |
+| Power indicator | Green 1206 LED (`D1`) and 2.2 kΩ series resistor (`R9`) |
+| PCB | 2 layers, approximately 60.06 × 40.03 mm, 1.6 mm FR-4, 1 oz copper |
+| Layout | Bottom-layer GND plane, 0603 passives, through-hole connectors and test points |
 
-### Electret microphone input
+The nominal RC corner frequencies are **component-value calculations**, not measured bandwidth for the AD8656 hardware.
 
-The input uses an **EKULIT EMY-6027P/N-R-42** electret capsule biased from the 5 V rail through **R3 = 2.2 kΩ**.
+## Signal path
 
-The microphone signal is AC-coupled through **C4 = 100 nF** into the amplifier bias node. A project-local KiCad footprint is included at:
+**Electret microphone → bias / AC coupling → AD8656 non-inverting gain stage → RC low-pass filter → output coupling → audio output**
 
-`hardware/kicad/AudioPreamp.pretty/Microphone_EKULIT_EMY-6027PNR-42.kicad_mod`
+The other amplifier in the dual AD8656 buffers the mid-supply reference.
 
-### Buffered mid-supply reference
+### Microphone input
 
-Because the amplifier operates from a single 5 V supply, the signal path is referenced to approximately 2.5 V.
+The electret capsule is biased through **R3 = 2.2 kΩ**. The microphone signal passes through **C4 = 100 nF** into the amplifier input network; **R4 = 47 kΩ** sets the nominal high-pass corner.
 
-- **R1 = 10 kΩ**
-- **R2 = 10 kΩ**
-- **C3 = 10 µF**
+```text
+f_HP = 1 / (2π × 47 kΩ × 100 nF) ≈ 33.9 Hz
+```
 
-R1 and R2 generate `VREF_RAW`, and the second OPA1652 channel buffers it to create the low-impedance `VREF` node.
+The microphone's project-local footprint is in `hardware/kicad/AudioPreamp.pretty/`.
 
-### Variable-gain amplifier
+### Mid-supply reference
 
-The first OPA1652 channel is configured as a non-inverting amplifier referenced to `VREF`.
+A **10 kΩ / 10 kΩ** divider (`R1`, `R2`) derives approximately **2.5 V** from the 5 V supply. **C3 = 10 µF** filters the divider node; the second AD8656 channel buffers it as `VREF`.
+
+### Variable gain
+
+The non-inverting amplifier uses:
 
 - **R5 = 22 kΩ**
 - **R6 = 220 Ω**
-- **RV1 = 500 Ω**
+- **RV1 = 500 Ω** adjustable potentiometer
 
-The approximate gain is:
+The idealized gain is:
 
 $$
 A_v = 1 + \frac{R_5}{R_6 + R_{V1}}
 $$
 
-Changing the effective resistance of RV1 gives the intended approximately **30–40 dB** adjustment range. LTspice validation was performed at approximately **30 dB, 35 dB, and 40 dB**.
+The gain-setting network targets approximately **30–40 dB**, depending on the potentiometer setting. This is a **design target**, not a measured AD8656 gain result.
 
-### High-pass filtering
+### Low-pass and output coupling
 
-The input coupling network uses:
+**R7 = 330 Ω** and **C5 = 27 nF** form the nominal low-pass filter:
 
-- **C4 = 100 nF**
-- **R4 = 47 kΩ**
+```text
+f_LP = 1 / (2π × 330 Ω × 27 nF) ≈ 17.9 kHz
+```
 
-The nominal component-value calculation is:
+**C6 = 4.7 µF** AC-couples the signal to `AUDIO_OUT`; **R8 = 100 kΩ** provides a DC reference at the output.
 
-$$
-f_{HP} = \frac{1}{2\pi R_4 C_4} \approx 33.9\,\text{Hz}
-$$
+### Power input and indication
 
-The **~32 Hz** label shown on the KiCad schematic is an approximate design annotation; the nominal RC calculation and simulated lower -3 dB point are approximately **33.9 Hz**.
+The incoming **5 V** supply is controlled by the on-board **SPDT slide switch (`SW1`)**. A **green 1206 LED (`D1`)** with a **2.2 kΩ series resistor (`R9`)** indicates power.
 
-### Low-pass filtering
-
-The gain-stage output feeds a first-order RC low-pass filter:
-
-- **R7 = 330 Ω**
-- **C5 = 27 nF**
-
-Its nominal corner frequency is:
-
-$$
-f_{LP} = \frac{1}{2\pi R_7 C_5} \approx 17.9\,\text{kHz}
-$$
-
-This closely matches the simulated upper -3 dB point of approximately **17.8 kHz**.
-
-### Output coupling
-
-**C6 = 4.7 µF** AC-couples the filtered signal to `AUDIO_OUT`, removing the internal 2.5 V DC bias. **R8 = 100 kΩ** provides the output-side DC reference to ground.
-
-## Power decoupling
-
-The 5 V rail uses:
-
-- **C1 = 100 nF** local bypass
-- **C2 = 10 µF** bulk decoupling
-
-The mid-supply divider also uses **C3 = 10 µF** at `VREF_RAW`.
-
-## Noise status
-
-The OPA1652 was selected partly for its low-noise audio performance. Texas Instruments specifies typical input-voltage noise density of **4.5 nV/√Hz at 1 kHz** and **3.8 nV/√Hz at 10 kHz**.
-
-That device specification is not the same as total preamplifier noise. The complete system also includes noise from the electret capsule and its internal JFET, bias and feedback resistors, the VREF network, the power supply and the PCB environment.
-
-The current project therefore does **not** claim a measured system noise figure. A first-order resistor/noise-source discussion and the planned hardware characterization method are documented in [`docs/noise-analysis.md`](docs/noise-analysis.md).
-
-## KiCad schematic
-
-![Original KiCad schematic — light theme](docs/kicad/Microphone.svg)
-
-[View the full-resolution schematic (SVG)](docs/kicad/Microphone.svg)
-
-The complete editable schematic is committed at [`hardware/kicad/Microphone.kicad_sch`](hardware/kicad/Microphone.kicad_sch). Open the project through [`hardware/kicad/Microphone.kicad_pro`](hardware/kicad/Microphone.kicad_pro) in KiCad 10 or a compatible newer release.
+Power bypassing uses **C1 = 100 nF** and **C2 = 10 µF**; the reference divider is filtered with **C3 = 10 µF**.
 
 ## PCB design
 
-The board was designed in KiCad 10 as a two-layer PCB.
+The two-layer board includes:
 
-Notable layout features:
+- AD8656 in **MSOP-8, 0.65 mm pitch**
+- 0603 resistor/capacitor footprints and a 1206 power LED
+- Through-hole electret microphone and adjustable potentiometer
+- Screw-terminal connections for power and audio output
+- Through-hole SPDT power switch, using the project-local `SW_ESP1010_SPDT_Vertical` footprint
+- Bottom-layer ground plane
+- Test points for `VREF`, `AMP_OUT`, `LPF_OUT`, `AUDIO_OUT` and GND
 
-- Bottom-layer GND copper plane
-- 0603 resistors and ceramic capacitors
-- SOIC-8 OPA1652
-- Through-hole electret microphone
-- Through-hole gain potentiometer
-- Screw-terminal power and audio-output connectors
-- Dedicated test points for `VREF`, `AMP_OUT`, `LPF_OUT`, `AUDIO_OUT`, and `GND`
-- Project-local microphone footprint library for portability
+The final board was checked in KiCad with **zero DRC errors, warnings, unconnected items and schematic-parity violations** before manufacturing export.
 
-## PCB views
+### Schematics and PCB images
 
-### Alternate 3D view
+The editable KiCad files above contain the **ordered revision**. Existing images in `docs/kicad/` were rendered before the final AD8656, switch and LED changes; they are **older previews** and will be regenerated. They are deliberately not embedded here as representations of the final board.
 
-![PCB alternate 3D view](docs/kicad/pcb_3d_angle.png)
+## LTspice simulation — earlier op-amp revision
 
-### Routed PCB layout
+The checked-in [LTspice schematic](simulation/ltspice/Microphone.asc) uses **Texas Instruments' OPA165x PSpice model**. It is retained as a record of the analog-stage development; it does **not** simulate the final AD8656 device or the complete revised power-indicator circuit.
 
-![PCB layout](docs/kicad/pcb_layout_top.png)
+The previous model passed:
 
-## LTspice validation
+- Operating-point analysis (`.op`)
+- Transient analysis
+- Stepped transient analysis
+- Stepped AC analysis
 
-The final simulation passed:
+Previously simulated gain points were approximately **30 / 35 / 40 dB**. At the ~30 dB setting, the previous model showed approximate −3 dB frequencies of **33.9 Hz and 17.8 kHz**. **These are historical OPA165x-model results, not validated AD8656 performance.**
 
-- `.op`
-- transient analysis
-- stepped transient analysis
-- stepped AC analysis
+### Earlier simulation plots
 
-The stepped simulations confirm the intended approximately **30 / 35 / 40 dB** gain settings.
+#### LTspice schematic
 
-At approximately 30 dB gain, the simulated -3 dB bandwidth is:
+![Earlier LTspice schematic](docs/ltspice/ltspice_schematic.png)
 
-- **Lower cutoff:** 33.9 Hz
-- **Upper cutoff:** 17.8 kHz
+#### Gain steps
 
-## Simulation plots
+![Earlier simulated gain settings](docs/ltspice/ac_gain_30_35_40dB.png)
 
-### LTspice schematic
+#### Frequency response
 
-![LTspice schematic](docs/ltspice/ltspice_schematic.png)
+![Earlier frequency response](docs/ltspice/full_frequency_response.png)
 
-### Stepped gain response
+#### Transient response
 
-![30, 35 and 40 dB gain](docs/ltspice/ac_gain_30_35_40dB.png)
+![Earlier stepped transient response](docs/ltspice/transient_gain_steps.png)
 
-### Full frequency response
+#### Input versus output
 
-![Full frequency response](docs/ltspice/full_frequency_response.png)
+![Earlier input/output transient](docs/ltspice/transient_input_vs_output_30dB.png)
 
-### Stepped transient response
+#### AC-coupled output
 
-![Stepped transient response](docs/ltspice/transient_gain_steps.png)
+![Earlier AC-coupled transient](docs/ltspice/audio_output_transient_30dB.png)
 
-### Input versus output at approximately 30 dB
+For setup details, see [the LTspice README](simulation/ltspice/README.md). The vendor OPA165x model is not redistributed here.
 
-![Input versus output](docs/ltspice/transient_input_vs_output_30dB.png)
+## Noise and measurement plan
 
-### Final AC-coupled audio output
+The final AD8656 implementation has **no published measured noise figure**. Device-level noise specifications and resistor thermal-noise estimates should not be presented as total system noise. The [older noise notes](docs/noise-analysis.md) refer to the OPA1652; they will be revised for the AD8656.
 
-![Audio output transient](docs/ltspice/audio_output_transient_30dB.png)
+After assembly, the planned checks are:
 
-## Repository structure
+1. Power-rail voltage, polarity, reference voltage and supply current
+2. Correct power-switch and LED operation
+3. Signal-chain continuity and adjustable gain
+4. Frequency response, output swing and clipping
+5. Output noise and sensitivity to supply/interference conditions
+
+No bench-tested gain, noise or bandwidth claims are made yet.
+
+## Repository layout
 
 ```text
 .
@@ -214,11 +181,10 @@ At approximately 30 dB gain, the simulated -3 dB bandwidth is:
 │       ├── Microphone.kicad_pro
 │       ├── Microphone.kicad_sch
 │       ├── Microphone.kicad_pcb
-│       ├── sym-lib-table
-│       ├── AudioPreamp.kicad_sym
 │       ├── fp-lib-table
 │       └── AudioPreamp.pretty/
-│           └── Microphone_EKULIT_EMY-6027PNR-42.kicad_mod
+│           ├── Microphone_EKULIT_EMY-6027PNR-42.kicad_mod
+│           └── SW_ESP1010_SPDT_Vertical.kicad_mod
 ├── simulation/
 │   └── ltspice/
 │       ├── Microphone.asc
@@ -229,26 +195,12 @@ At approximately 30 dB gain, the simulated -3 dB bandwidth is:
     └── ltspice/
 ```
 
-Generated Gerber, drill, cache, autosave, backup, and local KiCad preference files are intentionally excluded from version control.
+## Open the project
 
-## Opening the KiCad project
-
-1. Install KiCad 10 or a compatible newer release.
-2. Clone or download the repository.
+1. Install KiCad 10 (or a compatible newer version).
+2. Download or clone this repository.
 3. Open `hardware/kicad/Microphone.kicad_pro`.
 
-The project-local OPA1652 symbol library and microphone footprint library are referenced using `${KIPRJMOD}`, so no user-specific path should need to be repaired. Standard KiCad footprints and 3D models require the normal KiCad standard libraries.
+The microphone and power-switch footprints are stored locally and referenced through the `AudioPreamp.pretty` footprint library. Standard symbols, footprints and 3D models come from the normal KiCad installation.
 
-## Opening the LTspice simulation
-
-The final LTspice schematic file is:
-
-`simulation/ltspice/Microphone.asc`
-
-The simulation uses Texas Instruments' **OPA165x PSpice Model (Rev. C)**. The vendor model is intentionally not redistributed in this repository. Download it from the official TI OPA1652 product page and place `OPA165x.LIB` beside `Microphone.asc`.
-
-See [`simulation/ltspice/README.md`](simulation/ltspice/README.md) for the exact setup, directives, and useful trace expressions.
-
-## Current validation boundary
-
-The published performance figures are **simulation results**, not bench measurements. Hardware characterization will be added after PCB assembly and testing, including measured gain, frequency response, noise, clipping level and supply current.
+Temporary backups, KiCad caches, generated manufacturing exports and LTspice waveform files are intentionally excluded from Git.
