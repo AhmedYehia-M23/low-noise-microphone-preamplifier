@@ -189,6 +189,12 @@ No bench-tested gain, noise or bandwidth claims are made yet.
     └── ltspice/
 ```
 
+## Third-party attribution
+
+- **Analog Devices, Inc.** — manufacturer of the AD8656 operational amplifier and copyright holder of the AD8656 SPICE macro-model (© 2010, 2012 Analog Devices, Inc.). See the [official AD8656 product page](https://www.analog.com/en/products/ad8656.html) for the datasheet and model.
+- The Analog Devices SPICE macro-model is **not redistributed** in this repository. It is subject to [Analog Devices' SPICE model license](https://www.analog.com/en/license/spice-models-license.html); users must obtain it directly from the manufacturer and follow the applicable terms.
+- This is an independent electronics project and is **not affiliated with or endorsed by Analog Devices**.
+
 ## Open the project
 
 1. Install KiCad 10 (or a compatible newer version).

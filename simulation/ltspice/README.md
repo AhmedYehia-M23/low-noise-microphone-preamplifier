@@ -12,7 +12,7 @@ The project includes two separate simulation schematics. Only the final KiCad so
 .include ad8656.cir
 ```
 
-To run it, place an appropriate AD8656 SPICE macro-model named `ad8656.cir` in the same directory. The vendor model is not redistributed here.
+To run it, download the AD8656 SPICE macro-model from [Analog Devices' official AD8656 page](https://www.analog.com/en/products/ad8656.html), name it `ad8656.cir`, and place it beside the schematic. The model is copyrighted © 2010, 2012 by Analog Devices, Inc. and references [ADI's SPICE model license](https://www.analog.com/en/license/spice-models-license.html). **It is not redistributed here.**
 
 **Validation:** The supplied schematic has been preserved as provided, but the accompanying model was not supplied for independent verification. The model's `.SUBCKT` name, pin mapping and simulation results must be checked before claiming AD8656-validated performance.
 

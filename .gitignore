@@ -52,3 +52,7 @@ Thumbs.db
 # Vendor SPICE models (download locally from the manufacturer)
 simulation/ltspice/OPA165x.LIB
 simulation/ltspice/OPA165x*.LIB
+
+# Analog Devices SPICE macro-model (vendor copyrighted)
+simulation/ltspice/ad8656.cir
+simulation/ltspice/ad8656*.cir
