@@ -131,6 +131,8 @@ The editable KiCad source files above contain the final PCB revision. The 3D pre
 
 ## LTspice simulations
 
+![AD8656 LTspice signal-path schematic](docs/ltspice/ltspice_schematic_ad8656.png)
+
 The [AD8656 simulation schematic](simulation/ltspice/Microphone_Preamplifier_AD8656.asc) contains the revised op-amp stages and references the external `ad8656.cir` model. The model file is not included, and the revised simulation has **not yet been independently verified**. The switch and LED are not represented in this analog signal-path simulation.
 
 The [earlier OPA165x schematic](simulation/ltspice/Microphone_Preamplifier_OPA165x.asc) is retained as a record of the original analog-stage development. Its results are historical and must not be attributed to the final AD8656 design.

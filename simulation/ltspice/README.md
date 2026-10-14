@@ -4,6 +4,8 @@ The project includes two separate simulation schematics. Only the final KiCad so
 
 ## AD8656 schematic
 
+![AD8656 LTspice signal-path schematic](../../docs/ltspice/ltspice_schematic_ad8656.png)
+
 [Microphone_Preamplifier_AD8656.asc](Microphone_Preamplifier_AD8656.asc) models the microphone preamplifier signal path with `AD8656` values assigned to both op-amp symbols. It includes the directive:
 
 ```text
