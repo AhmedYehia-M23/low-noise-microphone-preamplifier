@@ -139,7 +139,13 @@ The editable KiCad source files above contain the final PCB revision. The 3D pre
 
 *AD8656 LTspice transient simulation at 1 kHz (`Rpot=1 Ω`, `I1 = SINE(250u 1u 1k)`). Separate scales show approximately 4.2 mVpp input (`V(VBIAS,VREF)`) and 420 mVpp output (`V(AUDIO_OUT)`), corresponding to approximately 100 V/V (40 dB) simulated gain. The plot does not establish measured hardware performance or total harmonic distortion.*
 
-The [AD8656 simulation schematic](simulation/ltspice/Microphone_Preamplifier_AD8656.asc) contains the revised op-amp stages and references the external `ad8656.cir` model. The model file is not included, and the revised simulation has **not yet been independently verified**. The switch and LED are not represented in this analog signal-path simulation.
+### AC amplifier-stage gain — maximum setting
+
+![AD8656 LTspice amplifier-stage AC gain, approximately 40 dB](docs/ltspice/ltspice_ac_gain_40db_ad8656.png)
+
+*User-run LTspice AC analysis with `Rpot=1 Ω`. Trace: `V(n001,vref)/V(vbias,vref)`, displayed by LTspice in dB. The simulated gain at 1 kHz is approximately **40.05 dB**, consistent with `1 + 22 kΩ / (220 Ω + 1 Ω)`. This is amplifier-stage gain, not the complete microphone-to-output frequency response or a physical measurement.*
+
+The [AD8656 simulation schematic](simulation/ltspice/Microphone_Preamplifier_AD8656.asc) contains the revised op-amp stages and references the external `ad8656.cir` model. The vendor model is not included in the repository. The plots here document user-run LTspice simulations, not independently repeated simulations or physical measurements. The switch and LED are not represented in this analog signal-path simulation.
 
 The [earlier OPA165x schematic](simulation/ltspice/Microphone_Preamplifier_OPA165x.asc) is retained as a record of the original analog-stage development. Its results are historical and must not be attributed to the final AD8656 design.
 
