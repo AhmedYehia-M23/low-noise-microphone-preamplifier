@@ -8,6 +8,7 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The p
 
 ## Project files
 
+- [PCB assembly BOM](hardware/BOM.md) ([CSV](hardware/BOM.csv))
 - [Editable KiCad schematic](hardware/kicad/Microphone.kicad_sch)
 - [Editable KiCad PCB](hardware/kicad/Microphone.kicad_pcb)
 - [KiCad project settings](hardware/kicad/Microphone.kicad_pro)
@@ -208,6 +209,8 @@ No bench-tested gain, noise or bandwidth claims are made yet.
 ├── .gitignore
 ├── .gitattributes
 ├── hardware/
+│   ├── BOM.md
+│   ├── BOM.csv
 │   └── kicad/
 │       ├── Microphone.kicad_pro
 │       ├── Microphone.kicad_sch

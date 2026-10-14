@@ -1,0 +1,18 @@
+Category,References,Quantity,Value / specification,KiCad footprint,Function,Assembly / verification notes
+Resistor,R1 R2,2,10 kΩ,Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder,Mid-supply divider,0603; tolerance and power rating not specified in KiCad
+Resistor,R3 R9,2,2.2 kΩ,Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder,Microphone bias and LED limiting,0603; R9 is the LED series resistor
+Resistor,R4,1,47 kΩ,Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder,Amplifier input bias,0603
+Resistor,R5,1,22 kΩ,Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder,Gain feedback,0603
+Resistor,R6,1,220 Ω,Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder,Gain-setting resistor,0603
+Resistor,R7,1,330 Ω,Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder,Low-pass series resistor,0603
+Resistor,R8,1,100 kΩ,Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder,Output reference / load resistor,0603
+Capacitor,C1 C4,2,100 nF,Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder,Supply bypass and microphone AC coupling,0603 non-polarized; voltage rating unspecified
+Capacitor,C2 C3,2,10 µF,Capacitor_SMD:CP_Elec_5x5.4,Supply bulk and VREF_RAW filtering,"Polarized SMD electrolytic; verify positive/negative orientation, can size and voltage rating"
+Capacitor,C5,1,27 nF,Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder,Low-pass shunt capacitor,0603 non-polarized
+Capacitor,C6,1,4.7 µF,Capacitor_SMD:CP_Elec_4x5.8,AC-coupled output capacitor,"Polarized SMD electrolytic; verify positive/negative orientation, can size and voltage rating"
+Diode,D1,1,LED,LED_SMD:LED_1206_3216Metric,Power-on indicator,1206; green intended; schematic does not specify color; check polarity
+Connector,J1 J2,2,2-position terminal block; 5.08 mm pitch,"TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",5 V power input and audio output,Horizontal through-hole; check mating wire and mechanical fit
+Microphone,MK1,1,EMY-6027P/N-R-42 electret microphone,AudioPreamp:Microphone_EKULIT_EMY-6027PNR-42,Electret capsule,Custom through-hole footprint; check capsule pin polarity and diameter
+Potentiometer,RV1,1,500 Ω,Potentiometer_THT:Potentiometer_Piher_PT-10-H01_Horizontal,Variable gain control,Through-hole horizontal; confirm exact footprint fit and wiper pinout; NOT 500 kΩ
+Switch,SW1,1,SPDT slide switch,AudioPreamp:SW_ESP1010_SPDT_Vertical,5 V power switch,3-pin vertical through-hole; pin 3 deliberately unused; confirm mechanical fit and switch action
+Integrated circuit,U1,1,AD8656ARMZ; dual operational amplifier,Package_SO:MSOP-8_3x3mm_P0.65mm,Main gain stage and VREF buffer,"One MSOP-8 dual op-amp IC, not two chips; verify device orientation"
