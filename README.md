@@ -133,6 +133,12 @@ The editable KiCad source files above contain the final PCB revision. The 3D pre
 
 ![AD8656 LTspice signal-path schematic](docs/ltspice/ltspice_schematic_ad8656.png)
 
+### 1 kHz transient response
+
+![AD8656 LTspice 1 kHz transient response](docs/ltspice/ltspice_transient_1khz_ad8656.png)
+
+*LTspice transient simulation at `Rpot=1 Ω` with `I1 = SINE(250u 1u 1k)`. The blue trace shows the AC-coupled output; the green input-relative-to-VREF trace appears nearly flat on the shared voltage scale. The plot is simulated, not a hardware measurement.*
+
 The [AD8656 simulation schematic](simulation/ltspice/Microphone_Preamplifier_AD8656.asc) contains the revised op-amp stages and references the external `ad8656.cir` model. The model file is not included, and the revised simulation has **not yet been independently verified**. The switch and LED are not represented in this analog signal-path simulation.
 
 The [earlier OPA165x schematic](simulation/ltspice/Microphone_Preamplifier_OPA165x.asc) is retained as a record of the original analog-stage development. Its results are historical and must not be attributed to the final AD8656 design.
