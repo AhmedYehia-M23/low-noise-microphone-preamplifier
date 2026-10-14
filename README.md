@@ -12,7 +12,7 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The p
 - [Editable KiCad PCB](hardware/kicad/Microphone.kicad_pcb)
 - [KiCad project settings](hardware/kicad/Microphone.kicad_pro)
 - [LTspice schematic and setup](simulation/ltspice/)
-- [Noise analysis notes](docs/noise-analysis.md) — written for the earlier OPA1652 revision; update pending
+- [Noise analysis notes](docs/noise-analysis.md) — resistor noise estimates and final-device measurement plan
 
 ## Project status
 
@@ -170,7 +170,7 @@ For setup details, see [the LTspice README](simulation/ltspice/README.md). The v
 
 ## Noise and measurement plan
 
-The final AD8656 implementation has **no published measured noise figure**. Device-level noise specifications and resistor thermal-noise estimates should not be presented as total system noise. The [older noise notes](docs/noise-analysis.md) refer to the OPA1652; they will be revised for the AD8656.
+The final AD8656 implementation has **no published measured noise figure**. Device-level noise specifications and resistor thermal-noise estimates should not be presented as total system noise. The [noise analysis notes](docs/noise-analysis.md) distinguish the earlier OPA1652 reference values from the AD8656 hardware and outline the planned measurements.
 
 After assembly, the planned checks are:
 

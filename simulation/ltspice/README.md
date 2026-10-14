@@ -1,6 +1,6 @@
-# LTspice simulation
+# LTspice simulation — earlier OPA165x revision
 
-The final LTspice schematic is `Microphone.asc`.
+The saved simulation is `Microphone.asc`. It documents an **earlier OPA165x-based amplifier revision**. The final KiCad PCB uses an **AD8656ARMZ (MSOP-8)** with a power switch and LED indicator. This file and its plots do not simulate that final hardware.
 
 ## OPA165x model dependency
 
@@ -54,7 +54,7 @@ Complete microphone-to-output response:
 V(AUDIO_OUT)/V(MIC_OUT)
 ```
 
-## Verified simulation results
+## Verified simulation results — earlier model
 
 - `.op`: passes
 - transient: passes
@@ -62,3 +62,5 @@ V(AUDIO_OUT)/V(MIC_OUT)
 - stepped AC: passes
 - Gain settings: approximately 30 / 35 / 40 dB
 - At the 30 dB setting, simulated -3 dB bandwidth: approximately 33.9 Hz to 17.8 kHz
+
+**Scope:** These results describe only the original OPA165x-based simulation. They are not AD8656 simulation results or physical measurements. Any AD8656-specific simulation or bench measurements will be documented separately.
