@@ -1,4 +1,0 @@
-(sym_lib_table
-  (version 7)
-  (lib (name "AudioPreamp")(type "KiCad")(uri "${KIPRJMOD}/AudioPreamp.kicad_sym")(options "")(descr "Project-local OPA1652D symbol"))
-)
