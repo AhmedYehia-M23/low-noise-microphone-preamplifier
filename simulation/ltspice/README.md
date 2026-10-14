@@ -26,6 +26,12 @@ The AC analysis uses `Rpot=1 Ω`. Plot `V(n001,vref)/V(vbias,vref)` directly in 
 
 The supplied simulation log reports `Input_1k = −53.5545 dBV` and `Output_1k = −13.509 dBV`; the difference is approximately **40.0455 dB at 1 kHz**. The ideal feedback network yields approximately **40.05 dB**, consistent with the reported result. These are user-run simulation results, not physical test results. The figure is only the amplifier-stage gain; it does not measure the full input-to-output high-pass and low-pass response.
 
+## Full signal-path frequency response — user-run LTspice result
+
+![AD8656 full signal-path AC sweep at 30 dB setting](../../docs/ltspice/ltspice_full_frequency_response_ad8656.png)
+
+With `Rpot=500 Ω`, plot `V(audio_out)/V(mic_out)` in the LTspice AC waveform viewer (without `dB()`). The sweep shows approximately **30 dB midband gain** and both high-pass and low-pass roll-offs. Exact −3 dB frequencies should be obtained from LTspice cursor measurements or valid `.meas AC` commands before recording numerical bandwidth claims. This is a user-run simulation, not a hardware measurement.
+
 ## Earlier OPA165x schematic
 
 [Microphone_Preamplifier_OPA165x.asc](Microphone_Preamplifier_OPA165x.asc) preserves the previous simulation, which uses Texas Instruments' **OPA165x PSpice Model (Rev. C)** with subcircuit name `OPA165x`. It is retained for traceability and comparison, **not** as validation of the final AD8656 PCB.
