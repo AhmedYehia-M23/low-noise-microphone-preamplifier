@@ -45,6 +45,14 @@ The user-run sweep used:
 
 Plot `V(audio_out)/V(mic_out)` directly in the LTspice AC waveform viewer. The solid curves show approximately **40 dB (green, 1 Ω)**, **35 dB (blue, 179 Ω)**, and **30 dB (red, 500 Ω)** in the midband. Dotted curves represent phase, not additional gain traces. These are simulation results, not bench measurements. Numerical −3 dB bandwidth checks are still pending.
 
+## Stepped transient output — three gain settings
+
+![AD8656 stepped 1 kHz transient output](../../docs/ltspice/ltspice_stepped_transient_ad8656.png)
+
+The user-run transient sweep enabled `.tran 0 3m 0 50n` and `.step param Rpot list 1 179 500`, with `I1 = SINE(250u 1u 1k)` and AC analysis disabled.
+
+The plotted `V(audio_out)` traces show approximately **420 mVpp** at 1 Ω (green), **235 mVpp** at 179 Ω (blue), and **130 mVpp** at 500 Ω (red). These are graph-based estimates at the 1 kHz test frequency, not physical measurements; waveform appearance alone does not quantify harmonic distortion.
+
 ## Earlier OPA165x schematic
 
 [Microphone_Preamplifier_OPA165x.asc](Microphone_Preamplifier_OPA165x.asc) preserves the previous simulation, which uses Texas Instruments' **OPA165x PSpice Model (Rev. C)** with subcircuit name `OPA165x`. It is retained for traceability and comparison, **not** as validation of the final AD8656 PCB.
