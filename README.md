@@ -115,7 +115,11 @@ The final board was checked in KiCad with **zero DRC errors, warnings, unconnect
 
 [View the full-resolution schematic](docs/kicad/Microphone.svg)
 
-The editable KiCad source files above contain the final PCB revision. The remaining PCB layout and 3D images in `docs/kicad/` still show an earlier layout and will be replaced.
+The editable KiCad source files above contain the final PCB revision. The 3D renders in `docs/kicad/` still show an earlier layout and will be replaced.
+
+### Routed PCB layout
+
+![Final routed PCB layout](docs/kicad/pcb_layout_top.png)
 
 ## LTspice simulation — earlier op-amp revision
 
