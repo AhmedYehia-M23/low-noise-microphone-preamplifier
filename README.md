@@ -140,33 +140,7 @@ The previous model passed:
 
 Previously simulated gain points were approximately **30 / 35 / 40 dB**. At the ~30 dB setting, the previous model showed approximate −3 dB frequencies of **33.9 Hz and 17.8 kHz**. **These are historical OPA165x-model results, not validated AD8656 performance.**
 
-### Earlier simulation plots
-
-#### LTspice schematic
-
-![Earlier LTspice schematic](docs/ltspice/ltspice_schematic.png)
-
-#### Gain steps
-
-![Earlier simulated gain settings](docs/ltspice/ac_gain_30_35_40dB.png)
-
-#### Frequency response
-
-![Earlier frequency response](docs/ltspice/full_frequency_response.png)
-
-#### Transient response
-
-![Earlier stepped transient response](docs/ltspice/transient_gain_steps.png)
-
-#### Input versus output
-
-![Earlier input/output transient](docs/ltspice/transient_input_vs_output_30dB.png)
-
-#### AC-coupled output
-
-![Earlier AC-coupled transient](docs/ltspice/audio_output_transient_30dB.png)
-
-For setup details, see [the LTspice README](simulation/ltspice/README.md). The vendor OPA165x model is not redistributed here.
+The earlier simulation schematic and results are preserved under [`simulation/ltspice/`](simulation/ltspice/) and in the repository's history. These results are not presented as current hardware validation.
 
 ## Noise and measurement plan
 
