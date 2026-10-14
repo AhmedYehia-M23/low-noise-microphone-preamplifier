@@ -46,6 +46,25 @@ Keep the op-amp model include and `Rpot` parameter. Change the enabled analysis 
 
 
 
+## LTspice and KiCad reference mapping
+
+The electrical stages correspond, but some component reference designators differ between the development LTspice schematic and the final KiCad PCB:
+
+| Function | LTspice reference | KiCad reference |
+| --- | --- | --- |
+| Microphone bias resistor, 2.2 kΩ | R4 | R3 |
+| Input bias resistor, 47 kΩ | R3 | R4 |
+| Mid-supply reference capacitor, 10 µF | C1 | C3 |
+| Input coupling capacitor, 100 nF | C2 | C4 |
+| Low-pass capacitor, 27 nF | C3 | C5 |
+| Supply bypass capacitor, 100 nF | C5 | C1 |
+| Supply bulk capacitor, 10 µF | C6 | C2 |
+| Output coupling capacitor, 4.7 µF | C7 | C6 |
+| Gain potentiometer, 500 Ω | RPOT | RV1 |
+| Gain and reference-buffer amplifier stages | U1 and U2 | U1A and U1B (one dual AD8656 IC) |
+
+The simulation omits the production PCB's slide switch and power-indicator circuit. **Use the KiCad schematic and PCB, not LTspice reference numbers, for physical assembly.**
+
 ## AD8656 AC gain — user-run LTspice result
 
 ![AD8656 amplifier-stage AC gain, Rpot 1 ohm](../../docs/ltspice/ltspice_ac_gain_40db_ad8656.png)
