@@ -2,7 +2,7 @@
 
 A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The production PCB uses an **Analog Devices AD8656ARMZ** dual op-amp (MSOP-8), adjustable non-inverting gain targeting approximately **30–40 dB**, and RC high-pass and low-pass filtering.
 
-**Status:** PCB design finalized and released for fabrication. Assembly and bench testing are pending. The original LTspice results in this repository use an **OPA165x model**, not the AD8656 used in the final PCB design.
+**Status:** PCB design finalized and released for fabrication; assembly and bench testing remain pending. The repository contains user-run **AD8656 LTspice simulations** and separately archived results from an earlier OPA165x-based revision.
 
 ![PCB 3D top view](docs/kicad/pcb_3d_top.png)
 
@@ -25,7 +25,7 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The p
 | PCB fabrication | Design released for fabrication |
 | PCB assembly | Pending; components will be soldered by hand |
 | LTspice analyses | Passed for the earlier OPA165x-based simulation |
-| AD8656 simulation | Schematic published; external model and simulation results not independently verified |
+| AD8656 simulation | User-run AC, transient and noise results documented; not independently rerun |
 | Bench gain, bandwidth, noise and supply-current measurements | Pending |
 
 The files in `hardware/kicad/` are the final production-source revision. Gerbers and drill exports are not included in this repository.
@@ -163,7 +163,7 @@ The editable KiCad source files above contain the final PCB revision. The 3D pre
 
 *User-run 1 kHz LTspice transient simulation with `I1 = SINE(250u 1u 1k)` and `.step param Rpot list 1 179 500`. The green (1 Ω), blue (179 Ω), and red (500 Ω) traces show approximately **420 mVpp**, **235 mVpp**, and **130 mVpp** at `V(audio_out)`, respectively. Values are approximate readings from the screenshot, not calibrated measurements or distortion results.*
 
-The [AD8656 simulation schematic](simulation/ltspice/Microphone_Preamplifier_AD8656.asc) contains the revised op-amp stages and references the external `ad8656.cir` model. The vendor model is not included in the repository. The plots here document user-run LTspice simulations, not independently repeated simulations or physical measurements. The switch and LED are not represented in this analog signal-path simulation.
+The [AD8656 simulation schematic](simulation/ltspice/Microphone_Preamplifier_AD8656.asc) contains the revised op-amp stages, a **1 kHz sine-wave stimulus** and a clean default **30 dB AC sweep** with gain and cutoff-frequency measurements. Other analysis configurations are documented in the [LTspice setup notes](simulation/ltspice/README.md). It references the external `ad8656.cir` model. The vendor model is not included in the repository. The plots here document user-run LTspice simulations, not independently repeated simulations or physical measurements. The switch and LED are not represented in this analog signal-path simulation.
 
 The [earlier OPA165x schematic](simulation/ltspice/Microphone_Preamplifier_OPA165x.asc) is retained as a record of the original analog-stage development. Its results are historical and must not be attributed to the final AD8656 design.
 
