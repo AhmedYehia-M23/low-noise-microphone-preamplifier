@@ -133,8 +133,6 @@ The editable KiCad source files above contain the final PCB revision. The 3D pre
 
 ![AD8656 LTspice signal-path schematic](docs/ltspice/ltspice_schematic_ad8656.png)
 
-*This reference image predates the simulation-command cleanup. The linked `.asc` file contains the current simplified analysis configuration.*
-
 ### 1 kHz transient response
 
 ![AD8656 LTspice 1 kHz transient response](docs/ltspice/ltspice_transient_1khz_ad8656.png)
