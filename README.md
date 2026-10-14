@@ -184,7 +184,9 @@ The original results are retained in [`simulation/ltspice/`](simulation/ltspice/
 
 ![AD8656 LTspice simulated output-noise spectral density](docs/ltspice/ltspice_output_noise_ad8656.png)
 
-*User-run LTspice `.noise V(audio_out) I1 dec 100 20 20k` analysis with `Rpot=500 Ω`. The plotted `V(onoise)` is output-noise **amplitude spectral density** in V/√Hz over 20 Hz–20 kHz. It represents the circuit and SPICE model as configured, with an idealized microphone current-source stimulus; it does **not** include the real electret capsule's complete self-noise, and is not an integrated RMS noise figure or hardware measurement.*
+*User-run LTspice `.noise V(audio_out) I1 dec 100 20 20k` analysis with `Rpot=500 Ω`. The plotted `V(onoise)` is output-noise **amplitude spectral density** in V/√Hz over 20 Hz–20 kHz. It represents the circuit and SPICE model as configured, with an idealized microphone current-source stimulus; it does **not** include the real electret capsule's complete self-noise, and is not itself an integrated RMS noise figure or hardware measurement.*
+
+**Integrated simulated output noise (20 Hz–20 kHz): 31.88 µV RMS**, using `Rpot=500 Ω`. The user-reported LTspice measurement was `.meas NOISE Output_Noise_RMS INTEG V(onoise) FROM=20 TO=20k`, returning `3.18777e-05 V RMS`. This is a simulation result from the configured circuit and AD8656 macro-model, **not a measurement of the real microphone or assembled PCB**.
 
 The final AD8656 implementation has **no published measured noise figure**. Device-level noise specifications and resistor thermal-noise estimates should not be presented as total system noise. The [noise analysis notes](docs/noise-analysis.md) distinguish the earlier OPA1652 reference values from the AD8656 hardware and outline the planned measurements.
 

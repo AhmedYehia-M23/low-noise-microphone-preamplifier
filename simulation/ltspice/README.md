@@ -82,7 +82,23 @@ The user-run noise sweep used:
 .noise V(audio_out) I1 dec 100 20 20k
 ```
 
-Plot `V(onoise)`. This trace represents the **output-referred noise amplitude spectral density** in V/√Hz, **not** integrated output RMS noise. The schematic models the microphone with an ideal current source, so it does not characterize the complete real electret capsule's self-noise. SPICE noise accuracy also depends on the noise behavior implemented in the AD8656 macro-model. No total 20 Hz–20 kHz RMS noise or measured hardware noise figure is claimed from this screenshot.
+Plot `V(onoise)`. This trace represents the **output-referred noise amplitude spectral density** in V/√Hz, **not** integrated output RMS noise. The schematic models the microphone with an ideal current source, so it does not characterize the complete real electret capsule's self-noise. SPICE noise accuracy also depends on the noise behavior implemented in the AD8656 macro-model. The plot alone does not report integrated output RMS noise or any measured hardware noise figure.
+
+### Integrated output-noise result — 20 Hz–20 kHz
+
+The user also ran:
+
+```text
+.meas NOISE Output_Noise_RMS INTEG V(onoise) FROM=20 TO=20k
+```
+
+LTspice returned:
+
+```text
+output_noise_rms: INTEG(v(onoise))=3.18777e-05 FROM 20 TO 20000
+```
+
+For noise analysis, LTspice's `INTEG V(onoise)` produces an **integrated RMS noise voltage**. The result is **31.8777 µV RMS (approximately 31.88 µV RMS)** at `V(audio_out)` for `Rpot=500 Ω` over 20 Hz–20 kHz. It depends on the SPICE macro-model and source configuration, with no real microphone capsule self-noise model; **it is not a hardware measurement or a complete microphone-system noise specification**.
 
 ## Earlier OPA165x schematic
 

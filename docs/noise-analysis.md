@@ -65,7 +65,16 @@ With `Rpot=500 Ω`, the user ran:
 .noise V(audio_out) I1 dec 100 20 20k
 ```
 
-The `V(onoise)` trace plots simulated **output-noise amplitude spectral density (V/√Hz)** across 20 Hz–20 kHz. It reflects the simulated components and the AD8656 macro-model's implemented noise sources. The microphone is represented by an ideal current source, **not a physical electret capsule noise model**. The graph does not establish integrated RMS noise, input-referred noise, microphone self-noise, or an actual hardware noise floor; a correctly integrated 20 Hz–20 kHz output RMS figure remains pending.
+The `V(onoise)` trace plots simulated **output-noise amplitude spectral density (V/√Hz)** across 20 Hz–20 kHz. It reflects the simulated components and the AD8656 macro-model's implemented noise sources. The microphone is represented by an ideal current source, **not a physical electret capsule noise model**. The spectral-density graph alone does not establish an integrated RMS value, input-referred noise, microphone self-noise, or a hardware noise floor.
+
+A separate user-run LTspice measurement integrated the simulated output noise:
+
+```text
+.meas NOISE Output_Noise_RMS INTEG V(onoise) FROM=20 TO=20k
+output_noise_rms: INTEG(v(onoise))=3.18777e-05 FROM 20 TO 20000
+```
+
+This gives **31.8777 µV RMS (approximately 31.88 µV RMS)** at `AUDIO_OUT` over **20 Hz–20 kHz**, with **Rpot = 500 Ω**. This result depends on the electrical circuit's modeled noise sources, including the AD8656 SPICE macro-model, but excludes the real capsule's complete self-noise. It must not be reported as measured PCB noise, real-microphone system noise or a measured signal-to-noise ratio.
 
 ## Planned characterization
 
