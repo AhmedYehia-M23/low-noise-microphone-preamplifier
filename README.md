@@ -149,7 +149,7 @@ The editable KiCad source files above contain the final PCB revision. The 3D pre
 
 ![AD8656 LTspice full signal-path frequency response](docs/ltspice/ltspice_full_frequency_response_ad8656.png)
 
-*User-run LTspice AC sweep with `Rpot=500 Ω`. Trace: `V(audio_out)/V(mic_out)`, shown in dB. The plot shows a band-pass response with approximately **30 dB midband gain**, including both the low- and high-frequency roll-offs. Precise −3 dB cutoff frequencies have not yet been measured numerically; this is simulated, not hardware-measured, performance.*
+*User-run LTspice AC sweep with `Rpot=500 Ω`. Trace: `V(audio_out)/V(mic_out)`, shown in dB. The plot shows a band-pass response with approximately **30 dB midband gain**, including both the low- and high-frequency roll-offs. At the 1 kHz gain of **29.5233 dB**, the user-run `.meas AC` results place the approximately −3 dB threshold at **26.5132 dB**, crossing at **30.8214 Hz** and **19,702.8 Hz (19.70 kHz)**. These cutoffs are relative to the 1 kHz gain, not necessarily the absolute passband peak. This is simulated, not hardware-measured, performance.*
 
 ### Stepped AC response — adjustable gain
 

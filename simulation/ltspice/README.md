@@ -30,7 +30,25 @@ The supplied simulation log reports `Input_1k = −53.5545 dBV` and `Output_1k =
 
 ![AD8656 full signal-path AC sweep at 30 dB setting](../../docs/ltspice/ltspice_full_frequency_response_ad8656.png)
 
-With `Rpot=500 Ω`, plot `V(audio_out)/V(mic_out)` in the LTspice AC waveform viewer (without `dB()`). The sweep shows approximately **30 dB midband gain** and both high-pass and low-pass roll-offs. Exact −3 dB frequencies should be obtained from LTspice cursor measurements or valid `.meas AC` commands before recording numerical bandwidth claims. This is a user-run simulation, not a hardware measurement.
+With `Rpot=500 Ω`, plot `V(audio_out)/V(mic_out)` in the LTspice AC waveform viewer (without `dB()`). The sweep shows approximately **30 dB midband gain** and both high-pass and low-pass roll-offs. The user-run SPICE Error Log reported these numeric results at `Rpot=500 Ω`:
+
+| Measurement | Value |
+| --- | ---: |
+| `Gain_1k` at 1 kHz | 29.5233 dB |
+| Applied gain threshold | 26.5132 dB (approximately −3.01 dB relative to 1 kHz) |
+| `F_LOW` | **30.8214 Hz** |
+| `F_HIGH` | **19,702.8 Hz** |
+| Difference between crossings | 19,671.98 Hz |
+
+Commands used:
+
+```text
+.meas AC Gain_1k FIND db(V(audio_out)/V(mic_out)) AT=1k
+.meas AC F_LOW WHEN db(V(audio_out)/V(mic_out))=26.5132 RISE=1
+.meas AC F_HIGH WHEN db(V(audio_out)/V(mic_out))=26.5132 FALL=1
+```
+
+The measured crossings are approximately 3 dB below **the 1 kHz gain**, not necessarily 3 dB below the absolute maximum of the response curve. These are user-run LTspice simulations, not physical measurements.
 
 ## Stepped AC response — three gain settings
 
