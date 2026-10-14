@@ -2,7 +2,7 @@
 
 A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The production PCB uses an **Analog Devices AD8656ARMZ** dual op-amp (MSOP-8), adjustable non-inverting gain targeting approximately **30–40 dB**, and RC high-pass and low-pass filtering.
 
-**Status:** PCB design complete; five bare boards ordered from PCBWay on **14 October 2026**. Assembly and bench testing are pending. The original LTspice results in this repository use an **OPA165x model**, not the AD8656 fitted to the ordered board.
+**Status:** PCB design finalized and released for fabrication. Assembly and bench testing are pending. The original LTspice results in this repository use an **OPA165x model**, not the AD8656 used in the final PCB design.
 
 ## Project files
 
@@ -18,14 +18,13 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The p
 | --- | --- |
 | Circuit and PCB design | Complete |
 | KiCad DRC | **0 errors, 0 warnings, 0 unconnected items, 0 schematic parity violations** on the final local design |
-| PCB fabrication | **5 boards ordered from PCBWay**, 14 October 2026 |
-| Component procurement | Reichelt order placed |
+| PCB fabrication | Design released for fabrication |
 | PCB assembly | Pending; components will be soldered by hand |
 | LTspice analyses | Passed for the earlier OPA165x-based simulation |
 | AD8656-specific simulation | Not yet published |
 | Bench gain, bandwidth, noise and supply-current measurements | Pending |
 
-The files in `hardware/kicad/` are the source revision used to prepare the manufacturing files for the PCBWay order. Gerbers and drill exports are not included in this repository.
+The files in `hardware/kicad/` are the final production-source revision. Gerbers and drill exports are not included in this repository.
 
 ## Hardware specifications
 
@@ -112,7 +111,7 @@ The final board was checked in KiCad with **zero DRC errors, warnings, unconnect
 
 ### Schematics and PCB images
 
-The editable KiCad files above contain the **ordered revision**. Existing images in `docs/kicad/` were rendered before the final AD8656, switch and LED changes; they are **older previews** and will be regenerated. They are deliberately not embedded here as representations of the final board.
+The editable KiCad files above contain the **final production revision**. Existing images in `docs/kicad/` were rendered before the final AD8656, switch and LED changes; they are **older previews** and will be regenerated. They are deliberately not embedded here as representations of the final board.
 
 ## LTspice simulation — earlier op-amp revision
 
