@@ -109,9 +109,13 @@ The two-layer board includes:
 
 The final board was checked in KiCad with **zero DRC errors, warnings, unconnected items and schematic-parity violations** before manufacturing export.
 
-### Schematics and PCB images
+### KiCad schematic
 
-The editable KiCad files above contain the **final production revision**. Existing images in `docs/kicad/` were rendered before the final AD8656, switch and LED changes; they are **older previews** and will be regenerated. They are deliberately not embedded here as representations of the final board.
+![Final KiCad schematic](docs/kicad/Microphone.svg)
+
+[View the full-resolution schematic](docs/kicad/Microphone.svg)
+
+The editable KiCad source files above contain the final PCB revision. The remaining PCB layout and 3D images in `docs/kicad/` still show an earlier layout and will be replaced.
 
 ## LTspice simulation — earlier op-amp revision
 
