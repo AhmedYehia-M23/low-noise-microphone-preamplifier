@@ -71,6 +71,19 @@ The user-run transient sweep enabled `.tran 0 3m 0 50n` and `.step param Rpot li
 
 The plotted `V(audio_out)` traces show approximately **420 mVpp** at 1 Ω (green), **235 mVpp** at 179 Ω (blue), and **130 mVpp** at 500 Ω (red). These are graph-based estimates at the 1 kHz test frequency, not physical measurements; waveform appearance alone does not quantify harmonic distortion.
 
+## AD8656 output-noise spectrum — user-run LTspice result
+
+![AD8656 simulated output-noise spectral density](../../docs/ltspice/ltspice_output_noise_ad8656.png)
+
+The user-run noise sweep used:
+
+```text
+.param Rpot=500
+.noise V(audio_out) I1 dec 100 20 20k
+```
+
+Plot `V(onoise)`. This trace represents the **output-referred noise amplitude spectral density** in V/√Hz, **not** integrated output RMS noise. The schematic models the microphone with an ideal current source, so it does not characterize the complete real electret capsule's self-noise. SPICE noise accuracy also depends on the noise behavior implemented in the AD8656 macro-model. No total 20 Hz–20 kHz RMS noise or measured hardware noise figure is claimed from this screenshot.
+
 ## Earlier OPA165x schematic
 
 [Microphone_Preamplifier_OPA165x.asc](Microphone_Preamplifier_OPA165x.asc) preserves the previous simulation, which uses Texas Instruments' **OPA165x PSpice Model (Rev. C)** with subcircuit name `OPA165x`. It is retained for traceability and comparison, **not** as validation of the final AD8656 PCB.

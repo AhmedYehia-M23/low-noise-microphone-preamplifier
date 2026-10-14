@@ -53,7 +53,19 @@ The electret capsule itself can dominate the practical noise floor, so op-amp no
 
 The term **low-noise** in this project currently refers to the design intent. It does **not** mean that a complete system noise figure has already been measured.
 
-The published gain, frequency-response and transient plots come from the **earlier OPA165x-based LTspice simulation**, not an AD8656-based simulation. Measurements of final-hardware gain, bandwidth and noise remain pending.
+The repository now documents **user-run AD8656-based LTspice gain, frequency-response, transient and output-noise spectra**. An earlier OPA165x simulation is retained separately for development history. Final PCB hardware has not yet been measured for gain, bandwidth or noise.
+
+## AD8656 simulated output-noise spectrum
+
+![AD8656 LTspice output-noise spectral density](ltspice/ltspice_output_noise_ad8656.png)
+
+With `Rpot=500 Ω`, the user ran:
+
+```text
+.noise V(audio_out) I1 dec 100 20 20k
+```
+
+The `V(onoise)` trace plots simulated **output-noise amplitude spectral density (V/√Hz)** across 20 Hz–20 kHz. It reflects the simulated components and the AD8656 macro-model's implemented noise sources. The microphone is represented by an ideal current source, **not a physical electret capsule noise model**. The graph does not establish integrated RMS noise, input-referred noise, microphone self-noise, or an actual hardware noise floor; a correctly integrated 20 Hz–20 kHz output RMS figure remains pending.
 
 ## Planned characterization
 
