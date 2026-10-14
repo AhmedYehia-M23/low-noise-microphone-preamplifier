@@ -1,36 +1,36 @@
-# LTspice simulation — earlier OPA165x revision
+# LTspice simulations
 
-The saved simulation is `Microphone.asc`. It documents an **earlier OPA165x-based amplifier revision**. The final KiCad PCB uses an **AD8656ARMZ (MSOP-8)** with a power switch and LED indicator. This file and its plots do not simulate that final hardware.
+The project includes two separate simulation schematics. Only the final KiCad sources represent the production PCB.
 
-## OPA165x model dependency
+## AD8656 schematic
 
-This simulation uses Texas Instruments' **OPA165x PSpice Model (Rev. C)**, with subcircuit name:
+[Microphone_Preamplifier_AD8656.asc](Microphone_Preamplifier_AD8656.asc) models the microphone preamplifier signal path with `AD8656` values assigned to both op-amp symbols. It includes the directive:
 
 ```text
-OPA165x
+.include ad8656.cir
 ```
 
-The TI model is intentionally **not redistributed in this repository**. Download it from the official OPA1652 product page:
+To run it, place an appropriate AD8656 SPICE macro-model named `ad8656.cir` in the same directory. The vendor model is not redistributed here.
+
+**Validation:** The supplied schematic has been preserved as provided, but the accompanying model was not supplied for independent verification. The model's `.SUBCKT` name, pin mapping and simulation results must be checked before claiming AD8656-validated performance.
+
+The currently enabled analysis is `.tran 0 3m 0 50n` with `Rpot=1`. The stepped and AC analysis directives are commented out. The schematic includes some AC measurement commands; run an AC analysis before interpreting those measurements. The on-board power switch and LED are omitted from this analog signal-path model.
+
+## Earlier OPA165x schematic
+
+[Microphone_Preamplifier_OPA165x.asc](Microphone_Preamplifier_OPA165x.asc) preserves the previous simulation, which uses Texas Instruments' **OPA165x PSpice Model (Rev. C)** with subcircuit name `OPA165x`. It is retained for traceability and comparison, **not** as validation of the final AD8656 PCB.
+
+The original vendor model is not included. Download the OPA165x PSpice model from:
 
 https://www.ti.com/product/OPA1652
 
-Under **Design & development → Simulation model**, download **OPA165x PSpice Model (Rev. C)** (`SBOMAS4C.ZIP`), then place the extracted `OPA165x.LIB` in this same directory:
-
-```text
-simulation/ltspice/
-├── Microphone.asc
-└── OPA165x.LIB   # locally downloaded from TI; not committed
-```
-
-The schematic contains:
+Extract `OPA165x.LIB` to the same folder as the earlier schematic. It contains:
 
 ```text
 .include OPA165x.LIB
 ```
 
-## Saved analysis configuration
-
-The checked-in schematic is saved for the stepped AC sweep:
+The original AC sweep was configured with:
 
 ```text
 .step param Rpot list 1 179 500
@@ -38,29 +38,13 @@ The checked-in schematic is saved for the stepped AC sweep:
 .param Rpot=500
 ```
 
-The transient and operating-point directives are present but commented. Toggle the directives in LTspice as required.
+Historical results from that model:
 
-## Useful traces
-
-Amplifier-stage gain:
-
-```text
-V(n001,VREF)/V(VBIAS,VREF)
-```
-
-Complete microphone-to-output response:
-
-```text
-V(AUDIO_OUT)/V(MIC_OUT)
-```
-
-## Verified simulation results — earlier model
-
-- `.op`: passes
-- transient: passes
-- stepped transient: passes
-- stepped AC: passes
+- Operating-point analysis: passed
+- Transient analysis: passed
+- Stepped transient analysis: passed
+- Stepped AC analysis: passed
 - Gain settings: approximately 30 / 35 / 40 dB
-- At the 30 dB setting, simulated -3 dB bandwidth: approximately 33.9 Hz to 17.8 kHz
+- Simulated −3 dB bandwidth at the 30 dB setting: approximately 33.9 Hz to 17.8 kHz
 
-**Scope:** These results describe only the original OPA165x-based simulation. They are not AD8656 simulation results or physical measurements. Any AD8656-specific simulation or bench measurements will be documented separately.
+These values are **not** measurements of assembled hardware or results from an AD8656 simulation.

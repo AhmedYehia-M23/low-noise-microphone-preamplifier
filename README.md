@@ -11,7 +11,9 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The p
 - [Editable KiCad schematic](hardware/kicad/Microphone.kicad_sch)
 - [Editable KiCad PCB](hardware/kicad/Microphone.kicad_pcb)
 - [KiCad project settings](hardware/kicad/Microphone.kicad_pro)
-- [LTspice schematic and setup](simulation/ltspice/)
+- [AD8656 LTspice schematic](simulation/ltspice/Microphone_Preamplifier_AD8656.asc)
+- [Earlier OPA165x LTspice schematic](simulation/ltspice/Microphone_Preamplifier_OPA165x.asc)
+- [LTspice setup notes](simulation/ltspice/README.md)
 - [Noise analysis notes](docs/noise-analysis.md) — resistor noise estimates and final-device measurement plan
 
 ## Project status
@@ -23,7 +25,7 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The p
 | PCB fabrication | Design released for fabrication |
 | PCB assembly | Pending; components will be soldered by hand |
 | LTspice analyses | Passed for the earlier OPA165x-based simulation |
-| AD8656-specific simulation | Not yet published |
+| AD8656 simulation | Schematic published; external model and simulation results not independently verified |
 | Bench gain, bandwidth, noise and supply-current measurements | Pending |
 
 The files in `hardware/kicad/` are the final production-source revision. Gerbers and drill exports are not included in this repository.
@@ -127,9 +129,11 @@ The editable KiCad source files above contain the final PCB revision. The 3D pre
 
 ![PCB angled 3D render](docs/kicad/pcb_3d_angle.png)
 
-## LTspice simulation — earlier op-amp revision
+## LTspice simulations
 
-The checked-in [LTspice schematic](simulation/ltspice/Microphone.asc) uses **Texas Instruments' OPA165x PSpice model**. It is retained as a record of the analog-stage development; it does **not** simulate the final AD8656 device or the complete revised power-indicator circuit.
+The [AD8656 simulation schematic](simulation/ltspice/Microphone_Preamplifier_AD8656.asc) contains the revised op-amp stages and references the external `ad8656.cir` model. The model file is not included, and the revised simulation has **not yet been independently verified**. The switch and LED are not represented in this analog signal-path simulation.
+
+The [earlier OPA165x schematic](simulation/ltspice/Microphone_Preamplifier_OPA165x.asc) is retained as a record of the original analog-stage development. Its results are historical and must not be attributed to the final AD8656 design.
 
 The previous model passed:
 
@@ -140,7 +144,7 @@ The previous model passed:
 
 Previously simulated gain points were approximately **30 / 35 / 40 dB**. At the ~30 dB setting, the previous model showed approximate −3 dB frequencies of **33.9 Hz and 17.8 kHz**. **These are historical OPA165x-model results, not validated AD8656 performance.**
 
-The earlier simulation schematic and results are preserved under [`simulation/ltspice/`](simulation/ltspice/) and in the repository's history. These results are not presented as current hardware validation.
+The original results are retained in [`simulation/ltspice/`](simulation/ltspice/) and the repository history, not as current hardware validation.
 
 ## Noise and measurement plan
 
@@ -174,7 +178,8 @@ No bench-tested gain, noise or bandwidth claims are made yet.
 │           └── SW_ESP1010_SPDT_Vertical.kicad_mod
 ├── simulation/
 │   └── ltspice/
-│       ├── Microphone.asc
+│       ├── Microphone_Preamplifier_AD8656.asc
+│       ├── Microphone_Preamplifier_OPA165x.asc
 │       └── README.md
 └── docs/
     ├── noise-analysis.md
