@@ -32,6 +32,19 @@ The supplied simulation log reports `Input_1k = −53.5545 dBV` and `Output_1k =
 
 With `Rpot=500 Ω`, plot `V(audio_out)/V(mic_out)` in the LTspice AC waveform viewer (without `dB()`). The sweep shows approximately **30 dB midband gain** and both high-pass and low-pass roll-offs. Exact −3 dB frequencies should be obtained from LTspice cursor measurements or valid `.meas AC` commands before recording numerical bandwidth claims. This is a user-run simulation, not a hardware measurement.
 
+## Stepped AC response — three gain settings
+
+![AD8656 stepped AC frequency response at approximately 30, 35, and 40 dB](../../docs/ltspice/ltspice_stepped_ac_gain_ad8656.png)
+
+The user-run sweep used:
+
+```text
+.step param Rpot list 1 179 500
+.ac dec 100 1 1Meg
+```
+
+Plot `V(audio_out)/V(mic_out)` directly in the LTspice AC waveform viewer. The solid curves show approximately **40 dB (green, 1 Ω)**, **35 dB (blue, 179 Ω)**, and **30 dB (red, 500 Ω)** in the midband. Dotted curves represent phase, not additional gain traces. These are simulation results, not bench measurements. Numerical −3 dB bandwidth checks are still pending.
+
 ## Earlier OPA165x schematic
 
 [Microphone_Preamplifier_OPA165x.asc](Microphone_Preamplifier_OPA165x.asc) preserves the previous simulation, which uses Texas Instruments' **OPA165x PSpice Model (Rev. C)** with subcircuit name `OPA165x`. It is retained for traceability and comparison, **not** as validation of the final AD8656 PCB.

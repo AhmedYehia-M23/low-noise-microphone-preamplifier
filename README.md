@@ -151,6 +151,12 @@ The editable KiCad source files above contain the final PCB revision. The 3D pre
 
 *User-run LTspice AC sweep with `Rpot=500 Ω`. Trace: `V(audio_out)/V(mic_out)`, shown in dB. The plot shows a band-pass response with approximately **30 dB midband gain**, including both the low- and high-frequency roll-offs. Precise −3 dB cutoff frequencies have not yet been measured numerically; this is simulated, not hardware-measured, performance.*
 
+### Stepped AC response — adjustable gain
+
+![AD8656 LTspice stepped AC responses at approximately 30, 35, and 40 dB](docs/ltspice/ltspice_stepped_ac_gain_ad8656.png)
+
+*User-run LTspice AC analysis with `.step param Rpot list 1 179 500`. The green, blue, and red solid curves correspond to approximately **40 dB (1 Ω)**, **35 dB (179 Ω)**, and **30 dB (500 Ω)** midband gain, respectively. Dotted curves show phase; this is the simulated full signal-path response (`V(audio_out)/V(mic_out)`), not physical measurement data.*
+
 The [AD8656 simulation schematic](simulation/ltspice/Microphone_Preamplifier_AD8656.asc) contains the revised op-amp stages and references the external `ad8656.cir` model. The vendor model is not included in the repository. The plots here document user-run LTspice simulations, not independently repeated simulations or physical measurements. The switch and LED are not represented in this analog signal-path simulation.
 
 The [earlier OPA165x schematic](simulation/ltspice/Microphone_Preamplifier_OPA165x.asc) is retained as a record of the original analog-stage development. Its results are historical and must not be attributed to the final AD8656 design.
