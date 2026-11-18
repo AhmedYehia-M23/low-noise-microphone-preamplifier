@@ -2,7 +2,7 @@
 
 A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The production PCB uses an **Analog Devices AD8656ARMZ** dual op-amp (MSOP-8), adjustable non-inverting gain targeting approximately **30–40 dB**, and RC high-pass and low-pass filtering.
 
-**Status:** PCB design finalized and released for fabrication; assembly and bench testing remain pending. The repository contains user-run **AD8656 LTspice simulations** and separately archived results from an earlier OPA165x-based revision.
+**Status (18 November 2026):** PCB fabricated and received (24 October 2026), hand-assembled (12 November 2026), and initial DC bring-up measurements recorded. Functional audio testing and measured gain, bandwidth, and noise remain pending; the power-indicator LED is not working. The repository contains user-run **AD8656 LTspice simulations** and separately archived results from an earlier OPA165x-based revision.
 
 ![PCB 3D top view](docs/kicad/pcb_3d_top.png)
 
@@ -16,6 +16,7 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The p
 - [Earlier OPA165x LTspice schematic](simulation/ltspice/Microphone_Preamplifier_OPA165x.asc)
 - [LTspice setup notes](simulation/ltspice/README.md)
 - [Noise analysis notes](docs/noise-analysis.md) — resistor noise estimates and final-device measurement plan
+- [Hardware bench-testing log](docs/bench-testing.md) — initial DC measurements, open issues, and validation checklist
 
 ## Project status
 
@@ -23,13 +24,32 @@ A 5 V single-supply electret microphone preamplifier designed in KiCad 10. The p
 | --- | --- |
 | Circuit and PCB design | Complete |
 | KiCad DRC | **0 errors, 0 warnings, 0 unconnected items, 0 schematic parity violations** on the final local design |
-| PCB fabrication | Design released for fabrication |
-| PCB assembly | Pending; components will be soldered by hand |
+| PCB fabrication | Complete; bare PCBs received 24 October 2026 |
+| PCB assembly | Hand-soldered; initial assembly completed 12 November 2026 |
 | LTspice analyses | Passed for the earlier OPA165x-based simulation |
 | AD8656 simulation | User-run AC, transient and noise results documented; not independently rerun |
-| Bench gain, bandwidth, noise and supply-current measurements | Pending |
+| Initial hardware DC checks | Supply rail and bias voltages measured on 12 November 2026 |
+| Power-indicator LED | Not illuminating; troubleshooting pending |
+| Audio function, gain, bandwidth, noise and supply-current measurements | Pending |
 
 The files in `hardware/kicad/` are the final production-source revision. Gerbers and drill exports are not included in this repository.
+
+## Hardware assembly and initial testing
+
+The physical PCB was received on **24 October 2026**, assembled by hand, and electrically checked on **12 November 2026**. Recorded digital-multimeter readings:
+
+| Check | Observed value | Interpretation |
+| --- | --- | --- |
+| 5 V supply rail | 5.20 V | Power present |
+| Buffered reference, `VREF` | 2.60 V | Close to expected half-supply |
+| AD8656 pin 8 (positive supply) | 5.20 V | Op-amp power present |
+| AD8656 pins 1 and 7 (outputs) | 2.60 V each | DC bias near reference |
+| AD8656 pin 5 | 2.60 V | Input bias near reference |
+| Electret microphone positive terminal | Approximately 4.60 V | DC reading recorded; microphone function not yet established |
+| R3 resistance check | Approximately 2 kΩ | Approximate DMM observation; not a tolerance measurement |
+| Power-indicator LED | Did not illuminate | Cause not yet identified |
+
+These are **preliminary DC measurements**, not measurements of audio gain, noise, frequency response, distortion, or full functional operation. The power switch and indicator have not been conclusively validated. The next planned functional test is the audio output through a speaker's AUX input. See the [detailed bench-testing log](docs/bench-testing.md).
 
 ## Hardware specifications
 
@@ -191,15 +211,22 @@ The original results are retained in [`simulation/ltspice/`](simulation/ltspice/
 
 The final AD8656 implementation has **no published measured noise figure**. Device-level noise specifications and resistor thermal-noise estimates should not be presented as total system noise. The [noise analysis notes](docs/noise-analysis.md) distinguish the earlier OPA1652 reference values from the AD8656 hardware and outline the planned measurements.
 
-After assembly, the planned checks are:
+### Hardware validation checklist (18 November 2026)
 
-1. Power-rail voltage, polarity, reference voltage and supply current
-2. Correct power-switch and LED operation
-3. Signal-chain continuity and adjustable gain
-4. Frequency response, output swing and clipping
-5. Output noise and sensitivity to supply/interference conditions
+- [x] Receive the manufactured PCB
+- [x] Hand-assemble and solder the board
+- [x] Record initial 5 V rail and VREF measurements
+- [x] Check selected AD8656 DC operating points
+- [ ] Verify switch function in the intended power path
+- [ ] Diagnose and resolve the power-indicator LED fault
+- [ ] Confirm audible output through the AUX-input speaker
+- [ ] Measure gain at the adjustable settings
+- [ ] Measure frequency response and -3 dB cutoffs
+- [ ] Measure output swing, clipping and supply current
+- [ ] Measure hardware output noise and check interference sensitivity
+- [ ] Add photographs of assembled PCB and measurement setup
 
-No bench-tested gain, noise or bandwidth claims are made yet.
+Photographs are intentionally **not included yet**. No bench-tested gain, noise or bandwidth claims are made. Detailed observations and the remaining test plan are in [`docs/bench-testing.md`](docs/bench-testing.md).
 
 ## Repository layout
 
@@ -225,6 +252,7 @@ No bench-tested gain, noise or bandwidth claims are made yet.
 │       ├── Microphone_Preamplifier_OPA165x.asc
 │       └── README.md
 └── docs/
+    ├── bench-testing.md
     ├── noise-analysis.md
     ├── kicad/
     └── ltspice/
